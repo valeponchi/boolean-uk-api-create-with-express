@@ -39,6 +39,16 @@ function Book() {
 		})
 	}
 
+	const findAllBooks = callback => {
+		const sql = `
+      SELECT * FROM books 
+      `
+
+		db.query(sql).then(result => {
+			callback(result.rows)
+		})
+	}
+
 	//callback can be whatever, in this case a function
 	function createOneBook(newBook, callback) {
 		const { title, type, author, topic, publicationDate } = newBook
@@ -65,6 +75,7 @@ function Book() {
 	return {
 		createOneBook,
 		findOneBook,
+		findAllBooks,
 	}
 }
 

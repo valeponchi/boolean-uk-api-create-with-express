@@ -2,10 +2,15 @@ const Book = require('./model')
 
 //set up my Book model
 //Books table gets created
-const { createOneBook, findOneBook } = Book()
+const { createOneBook, findOneBook, findAllBooks } = Book()
 
+// function findAll(req, res) {
+// 	res.json({ Books: 'All Books here..' })
+// }
 function findAll(req, res) {
-	res.json({ Books: 'All Books here..' })
+	findAllBooks(books => {
+		res.json({ books })
+	})
 }
 
 function findOne(req, res) {
