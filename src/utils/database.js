@@ -1,3 +1,5 @@
+//this is called (in other languages) config file
+
 // const pg = require("pg")
 // const db = pg.Client
 

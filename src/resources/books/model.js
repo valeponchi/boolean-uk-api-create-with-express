@@ -1,7 +1,7 @@
 const dbClient = require('../../utils/database')
 
-// model is singular
-// table is plural
+// in the model is singular (refer to it as a whole thing)
+// in the table is plural (refer to the items in it)
 function Book() {
 	function createTable() {
 		//SERIAL MEANS IT WILL INCREASE AUTOMATICALLY
@@ -19,21 +19,22 @@ function Book() {
       publicationDate DATE           NOT NULL
     );
   `
-		//this will return a Promise with the result of whatever the query gives us
+		//db.query will return a Promise with the result of whatever the query gives us
 		//QUERY sends sql to the server
-		//SQL run the table and send back the response
+		//SQL runs the table and send back the response
 		//the response is what is returned
 		dbClient.query(sql).then(result => {
 			console.log('Books table created!')
 		})
 	}
 
-	function findOneBook(bookId) {
+	function findOneBook(bookId, callback) {
 		const sql = `
     SELECT * FROM books 
     WHERE id = ($1);
     `
-		//$1 matches the first El in this array:
+		//$1 matches the first El in this array.
+		//when the callback os called, it will have the result as arg
 		dbClient.query(sql, [bookId]).then(result => {
 			callback(result.rows[0])
 		})
@@ -43,8 +44,7 @@ function Book() {
 		const sql = `
       SELECT * FROM books 
       `
-
-		db.query(sql).then(result => {
+		dbClient.query(sql).then(result => {
 			callback(result.rows)
 		})
 	}

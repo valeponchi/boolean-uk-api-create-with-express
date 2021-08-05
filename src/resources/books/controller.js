@@ -16,13 +16,10 @@ function findAll(req, res) {
 function findOne(req, res) {
 	const { id } = req.params
 
-	findOneBook(Number(id), Book => {
-		res.json({ Book: `You requested Book n. ${id}` })
-		// or this:
-		// BooksRouter.get('/:id/:name', (req, res) => {
-		// 	const id = Number(req.params.id)
-		// 	res.json({ Book: `You request Book n. ${id} ${name}` })
-		// })
+	//the second arg is the callback (in model.js) and the arg is the result
+	//so now we can use it to send it back to the frontend.
+	findOneBook(Number(id), book => {
+		res.json({ book })
 	})
 }
 

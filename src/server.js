@@ -11,7 +11,7 @@ const booksRouter = require('./resources/books/router')
 //is a piece of code that runs before we can sent a res back from our server
 //morgan is a module that prints the req into the console
 app.use(morgan('dev'))
-app.use(express.json()) // so the server understand json
+app.use(express.json()) // so the server understand json for post,patch,put
 
 //Routes
 app.use('/books', booksRouter)
@@ -21,10 +21,12 @@ app.get('*', (req, res) => {
 })
 
 //run server
+//the connection between Server and Database
 app.listen(4000, () => {
 	dbClient.connect(error => {
 		if (error) {
-			console.log(error)
+			console.log(`Error: `, error)
+			// console.error(`Error: `, error.stack)
 		} else {
 			console.log('Database is connected!')
 		}
